@@ -1,0 +1,13 @@
+{
+  "name": "LEDblink",
+  "description": "LED blink app",
+  "type": "certified",
+  "launch_path": "/index.html",
+  "developer": {
+    "name": "chirimen-org",
+    "url": "https://github.com/chirimen-org/examples"
+  },
+  "icons": {
+    "128": "/style/icons/sensor.png"
+  }
+}

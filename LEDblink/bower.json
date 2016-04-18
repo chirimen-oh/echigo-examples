@@ -1,0 +1,17 @@
+{
+  "name": "LEDblink",
+  "homepage": "https://github.com/chirimen-org/examples",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "webgpio": "webgpio-polyfill#^0.3.0"
+  }
+}

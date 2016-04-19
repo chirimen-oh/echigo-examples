@@ -8,13 +8,13 @@ window.addEventListener('load', function (){
         console.log("GPIO ready!");
         return gpioAccess;
     }).then(gpio=>{
-      var port = gpio.ports.get(256);
+      var port = gpio.ports.get(198);
       var v = 0;
       return port.export("out").then(()=>{
         setInterval(function(){
           v = v ? 0 : 1;
           port.write(v);
-        },5000);
+        },1000);
       });
   }).catch(error=>{
     console.log("Failed to get GPIO access catch: " + error.message);

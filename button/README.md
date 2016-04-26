@@ -15,4 +15,4 @@ bower install
 
  2. deployment to chirimen
 
- 3. enjoy LED Blink
+ 3. enjoy button example

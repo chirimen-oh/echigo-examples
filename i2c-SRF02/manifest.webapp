@@ -1,0 +1,13 @@
+{
+  "name": "i2c-SRF02",
+  "description": "distance sensor SRF02 example",
+  "type": "certified",
+  "launch_path": "/index.html",
+  "developer": {
+    "name": "chirimen-org",
+    "url": "https://github.com/chirimen-org/examples"
+  },
+  "icons": {
+    "128": "/style/icons/sensor.png"
+  }
+}

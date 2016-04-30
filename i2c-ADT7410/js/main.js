@@ -6,10 +6,7 @@ window.addEventListener('load', function (){
   // WebI2C Initialized
   navigator.requestI2CAccess()
     .then(function(i2cAccess){
-      return i2cAccess.ports;
-    }).then(function(ports){
-      return ports.get(0);
-    }).then(function(port){
+      var port = i2cAccess.ports.get(0);
       var adt7410 = new ADT7410(port,0x48);
       setInterval(function(){
         adt7410.read().then(function(value){

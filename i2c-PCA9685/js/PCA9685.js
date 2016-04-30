@@ -1,14 +1,32 @@
 var PCA9685 = function(i2cPort,slaveAddress){
   this.i2cPort = i2cPort;
   this.slaveAddress = slaveAddress;
+  this.minPulse=null;
+  this.maxPulse=null;
+  this.angleRange=null;
 };
 
 PCA9685.prototype = {
   sleep: function(ms, generator){
     setTimeout(function(){generator.next()}, ms);
   },
-  init: function(noSetZero){
+  init: function(minPulse,maxPulse,angleRange,noSetZero){
     var self = this;
+    if(self.minPulse && self.maxPulse && self.angleRange){
+      console.log("alredy set param");
+    }
+    if(minPulse && maxPulse && angleRange){ 
+      self.minPulse = minPulse;
+      self.maxPulse = maxPulse;
+      self.angleRange = angleRange;
+      console.log("set servo setting.");
+    }else{
+      self.minPulse = 0.0005;
+      self.maxPulse = 0.0024;
+      self.angleRange = 180;
+      console.log("set defaul servo setting.");
+    }
+
     return new Promise(function(resolve, reject){
       self.i2cPort.open(self.slaveAddress)
       .then(function(i2cSlave){
@@ -56,49 +74,34 @@ PCA9685.prototype = {
 
     var portStart = 8;
     var portInterval = 4;
-    
-    var center = 0.001500; // sec ( 1500 micro sec)
-    var range  = 0.000600; // sec ( 600 micro sec) a bit large?
-    var angleRange = 90.0;
-    
-    if ( angle > angleRange){
-      angle = angleRange;
-    } else if ( angle < -angleRange ){
-      angle = - angleRange;
-    }
         
     var freq = 61; // Hz
     var tickSec = ( 1 / freq ) / 4096; // 1bit resolution( sec )
-    var centerTick = center / tickSec;
-    var rangeTick = range / tickSec;
-        
-    var gain = rangeTick / angleRange; // [tick / angle]
-        
-    var ticks = Math.round(centerTick + gain * angle);
-    /*
-    var minPulse = 0.0005;
-    var maxPulse = 0.0024;
-    pulseRange = maxPulse - minPulse;
-    angleRange = 180;
+    
+    var minPulse,maxPulse,angleRange,pulseRange;
+    if(self.minPulse && self.maxPulse && self.angleRange){
+      minPulse = self.minPulse;
+      maxPulse = self.maxPulse;
+      pulseRange = maxPulse - minPulse;
+      angleRange = self.angleRange;
+      console.log(minPulse,maxPulse,angleRange,pulseRange);
+    }else{
+      console.log("wrong param.");
+    }
     var pulse = minPulse + angle / angleRange * pulseRange;
     var ticks = Math.round(pulse / tickSec);
-    */
-        
+    
     var tickH = (( ticks >> 8 ) & 0x0f);
     var tickL = (ticks & 0xff);
-
-
 
     return new Promise(function(resolve, reject){
       self.i2cPort.open(self.slaveAddress)
       .then(function(i2cSlave){
         var thread = (function* () {
           var pwm = Math.round(portStart + servoPort * portInterval);
-          i2cSlave.write8( Math.round(portStart + servoPort * portInterval + 1), tickH);
-          //i2cSlave.write8( pwm + 1, tickH);
+          i2cSlave.write8( pwm + 1, tickH);
           yield self.sleep(1, thread);
-          i2cSlave.write8( Math.round(portStart + servoPort * portInterval), tickL);
-          //i2cSlave.write8( pwm, tickL);
+          i2cSlave.write8( pwm, tickL);
 
           resolve();
 

@@ -13,10 +13,11 @@ window.addEventListener('load', function (){
       var pcs9685 = new PCA9685(port,0x40);
       var angle = 90;
       console.log("angle"+angle);
-      pcs9685.init().then(function(){
+      //servo setting for sg90
+      pcs9685.init(0.00050,0.00240,180).then(function(){
         console.log("init");
         setInterval(function(){
-          angle = (angle<0) ? 90 : -90;
+          angle = (angle<=10) ? 170 : 10;
           console.log("angle"+angle);
           pcs9685.setServo(0,angle).then(function(){
             console.log('value:', angle);

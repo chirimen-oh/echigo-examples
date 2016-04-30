@@ -6,10 +6,7 @@ window.addEventListener('load', function (){
   // WebI2C Initialized
   navigator.requestI2CAccess()
     .then(function(i2cAccess){
-      return i2cAccess.ports;
-    }).then(function(ports){
-      return ports.get(0);
-    }).then(function(port){
+      var port = i2cAccess.ports.get(0);
       var pcs9685 = new PCA9685(port,0x40);
       var angle = 90;
       console.log("angle"+angle);

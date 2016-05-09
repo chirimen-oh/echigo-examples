@@ -45,6 +45,10 @@ It controls servo motors using servo driver(PCA9685).
 
 Please see also: http://fabble.cc/chirimenedu/chirimenservo
 
+### i2c-multi-sensors
+
+It serially reads two sensors (temperture and distance) value.
+
 ##LICENSE
 Copyright (c) 2016 CHIRIMEN Open Hardware
 

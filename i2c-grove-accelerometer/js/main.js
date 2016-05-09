@@ -1,0 +1,24 @@
+'use strict';
+
+window.addEventListener('load', function (){
+  var ax = document.querySelector('#ax');
+  var ay = document.querySelector('#ay');
+  var az = document.querySelector('#az');
+  
+  // WebI2C Initialized
+  navigator.requestI2CAccess()
+    .then(function(i2cAccess){
+      var port = i2cAccess.ports.get(0);
+      var groveaccelerometer = new GROVEACCELEROMETER(port,0x53);
+      groveaccelerometer.init().then(function(){
+        setInterval(function(){
+          groveaccelerometer.read().then(function(values){
+            console.log('values(x,y,z):', values.x,values.y,values.z);
+            ax.innerHTML = values.x ? values.x : ax.innerHTML;
+            ay.innerHTML = values.y ? values.y : ay.innerHTML;
+            az.innerHTML = values.z ? values.z : az.innerHTML;
+          });
+        },1000);
+      })
+    }).catch(e=> console.error('error', e));
+}, false);

@@ -13,6 +13,31 @@ Please see also: http://fabble.cc/chirimenedu/chirimenhelloworld
 It blinks on an LED when push a button.
 Please see also: http://fabble.cc/chirimenedu/chirimenpushbutton
 
+### i2c-ADT7410
+
+It reads a Temperture sensor (ADT7410).
+Please see also: http://fabble.cc/chirimenedu/chirimeni2csensor
+
+### i2c-SRF02
+
+It reads a Distance sensor (SRF02).
+Please see also: http://fabble.cc/chirimenedu/chirimeni2csensor
+
+### i2c-grove-light
+
+It reads a light sensor (Grove Digital Light Sensor).
+Please see also: http://fabble.cc/chirimenedu/chirimeni2csensor
+
+### i2c-grove-accelerometer
+
+It reads a accelerometer sensor (Grove Digital Accelerometer Sensor).
+Please see also: http://fabble.cc/chirimenedu/chirimeni2csensor
+
+### PCA9685
+
+It controls servo motors using servo driver(PCA9685).
+Please see also: http://fabble.cc/chirimenedu/chirimenservo
+
 ##LICENSE
 Copyright (c) 2016 CHIRIMEN Open Hardware
 

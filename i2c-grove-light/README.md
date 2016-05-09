@@ -16,4 +16,4 @@ bower install
 
  2. deployment to chirimen
 
- 3. enjoy Grove Digital Light sensor (distance sensor)
+ 3. enjoy Grove Digital Light sensor 

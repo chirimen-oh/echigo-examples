@@ -2,12 +2,9 @@
 
 var Main = {
   init: function() {
-    navigator.requestI2CAccess().then(function(i2cAccess) {
-      return i2cAccess.open(0);
-    }).then(function(i2cPort) {
-      return i2cPort.open(0x2a);
-    }).then(function(i2cSlave) {
-      Main.s11059 = new S11059(i2cSlave);
+    navigator.requestI2CAccess().then(function(i2cAccess){
+      var port = i2cAccess.ports.get(0);
+      Main.s11059 = new S11059(port,0x2a);
       return Main.s11059.init();
     }).then(function() {
       Main.start();

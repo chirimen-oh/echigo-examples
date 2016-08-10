@@ -17,3 +17,9 @@ bower install
  2. deployment to chirimen
 
  3. enjoy SRF02 (distance sensor)
+
+## How to construct circuit
+
+Japanese
+
+http://fabble.cc/chirimenedu/chirimeni2csensor

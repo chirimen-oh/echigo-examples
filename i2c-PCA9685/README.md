@@ -1,6 +1,6 @@
 Please see also: https://github.com/club-wot/WebGPIO
 
-## use settings
+## Use settings
 
  1. setup
 
@@ -17,3 +17,12 @@ bower install
  2. deployment to chirimen
 
  3. enjoy PCA9685 (servo driver)
+
+
+## How to construct circuit
+
+Japanese
+
+http://fabble.cc/chirimenedu/chirimeni2csensor
+
+

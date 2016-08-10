@@ -17,13 +17,13 @@ Please see also: http://fabble.cc/chirimenedu/chirimenpushbutton
 
 ### i2c-ADT7410
 
-It reads a Temperture sensor (ADT7410).
+It reads a temperture sensor (ADT7410).
 
 Please see also: http://fabble.cc/chirimenedu/chirimeni2csensor
 
 ### i2c-SRF02
 
-It reads a Distance sensor (SRF02).
+It reads a distance sensor (SRF02).
 
 Please see also: http://fabble.cc/chirimenedu/chirimeni2csensor
 
@@ -35,7 +35,7 @@ Please see also: http://fabble.cc/chirimenedu/chirimeni2csensor
 
 ### i2c-grove-accelerometer
 
-It reads a accelerometer sensor (Grove Digital Accelerometer Sensor).
+It reads an accelerometer sensor (Grove Digital Accelerometer Sensor).
 
 Please see also: http://fabble.cc/chirimenedu/chirimeni2csensor
 
@@ -48,6 +48,10 @@ Please see also: http://fabble.cc/chirimenedu/chirimenservo
 ### i2c-multi-sensors
 
 It serially reads two sensors (temperture and distance) value.
+
+### i2c-S11059
+
+It reads a color sensor (S11059).
 
 ##LICENSE
 Copyright (c) 2016 CHIRIMEN Open Hardware

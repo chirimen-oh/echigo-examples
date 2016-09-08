@@ -45,6 +45,12 @@ It controls servo motors using servo driver(PCA9685).
 
 Please see also: http://fabble.cc/chirimenedu/chirimenservo
 
+### i2c-veml6070
+
+It controls a UV sensor(VEML6070).
+
+Please see also: http://fabble.cc/kohichi000000/chirimen-veml6070
+
 ### i2c-multi-sensors
 
 It serially reads two sensors (temperture and distance) value.

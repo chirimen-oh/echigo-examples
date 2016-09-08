@@ -1,11 +1,9 @@
 Please see also: https://github.com/club-wot/WebGPIO
 
-## use settings
+## Use settings
 
- 1. setup
-
+1. setup
 ```
-
 # settings
 npm i -g bower
 
@@ -13,7 +11,10 @@ npm i -g bower
 bower install
 
 ```
+1. deployment to chirimen
 
- 2. deployment to chirimen
+1. enjoy VEML6070 (UV sensor)
 
- 3. enjoy VEML6070 (UV sensor)
+## How to construct circuit (in Japanese) 
+
+http://fabble.cc/kohichi000000/chirimen-veml6070

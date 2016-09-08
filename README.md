@@ -1,5 +1,21 @@
 # CHIRIMEN programing sample collection
 
+## Cording style
+English
+
+* Sample codes should be fullfilled the below cording style.
+
+https://developer.mozilla.org/en-US/docs/Mozilla/Developer_guide/Coding_Style
+
+* Don't include the polyfill codes such as webgpio.js and webi2c.js.
+
+日本語
+
+* サンプルコードは基本的に以下のコード規約に従ってください。
+
+https://developer.mozilla.org/ja/docs/Mozilla/Developer_Guide/Mozilla_Coding_Style_Guide
+
+* webgpio.js、webi2c.jsなどpolyfillのスクリプトはサンプルコードに含めないでください。
 
 ## Description
  

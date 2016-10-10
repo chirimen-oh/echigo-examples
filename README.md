@@ -75,6 +75,12 @@ It serially reads two sensors (temperture and distance) value.
 
 It reads a color sensor (S11059).
 
+### i2c-PAJ7620-Gesture
+
+It reads a Gesture sensor (PAJ7620U2) ([Grove Gesture v1](http://wiki.seeedstudio.com/wiki/Grove_-_Gesture_v1.0)).
+
+Please see also: http://fabble.cc/tadfmac/chirimen-i2c-paj7620-gesture
+
 ##LICENSE
 Copyright (c) 2016 CHIRIMEN Open Hardware
 

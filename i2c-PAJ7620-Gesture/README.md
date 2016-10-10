@@ -1,8 +1,6 @@
 # PAJ7620 I2C Gesture Sensor Example
 
-It reads a [Grove Gesture v1.0 (PAJ7620U2)](http://wiki.seeedstudio.com/wiki/Grove_-_Gesture_v1.0).
-
-Please see also: https://github.com/club-wot/WebGPIO
+It reads a Gesture sensor (PAJ7620U2) ([Grove Gesture v1](http://wiki.seeedstudio.com/wiki/Grove_-_Gesture_v1.0)).
 
 ## Use settings
 
@@ -17,6 +15,8 @@ Please see also: https://github.com/club-wot/WebGPIO
 
     bower install
     ```
+    
+  Please see also: https://github.com/club-wot/WebGPIO
 
  2. deployment to chirimen
 

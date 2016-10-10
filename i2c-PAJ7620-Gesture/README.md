@@ -25,7 +25,9 @@ Please see also: https://github.com/club-wot/WebGPIO
 
 ## How to construct circuit
 
-T.B.D.
+Japanese
+
+http://fabble.cc/tadfmac/chirimen-i2c-paj7620-gesture
 
 
 

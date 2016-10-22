@@ -1,6 +1,6 @@
-# PAJ7620 I2C Gesture Sensor Example
+# Grove OLED Display Example
 
-It reads a gesture sensor (PAJ7620U2) ([Grove Gesture v1](http://wiki.seeedstudio.com/wiki/Grove_-_Gesture_v1.0)).
+It controls a [Grove OLED Display](http://wiki.seeedstudio.com/wiki/Grove_-_OLED_Display_128*64)
 
 ## Use settings
 
@@ -20,14 +20,14 @@ It reads a gesture sensor (PAJ7620U2) ([Grove Gesture v1](http://wiki.seeedstudi
 
  2. deployment to chirimen
 
- 3. enjoy [Grove Gesture v1.0 (PAJ7620U2)](http://wiki.seeedstudio.com/wiki/Grove_-_Gesture_v1.0)
+ 3. enjoy [Grove OLED Display](http://wiki.seeedstudio.com/wiki/Grove_-_OLED_Display_128*64)
 
 
 ## How to construct circuit
 
 Japanese
 
-http://fabble.cc/tadfmac/chirimen-i2c-paj7620-gesture
+T.B.D.
 
 
 

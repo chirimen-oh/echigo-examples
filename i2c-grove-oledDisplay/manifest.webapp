@@ -1,0 +1,13 @@
+{
+  "name": "oledDisplay",
+  "description": "oledDisplay example",
+  "type": "certified",
+  "launch_path": "/index.html",
+  "developer": {
+    "name": "chirimen-org",
+    "url": "https://github.com/chirimen-org/examples"
+  },
+  "icons": {
+    "512": "/style/icons/icon-512.png"
+  }
+}

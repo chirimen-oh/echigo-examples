@@ -81,6 +81,12 @@ It reads a gesture sensor (PAJ7620U2) ([Grove Gesture v1](http://wiki.seeedstudi
 
 Please see also: http://fabble.cc/tadfmac/chirimen-i2c-paj7620-gesture
 
+### i2c-grove-oledDisplay
+
+It controls a [Grove OLED Display](http://wiki.seeedstudio.com/wiki/Grove_-_OLED_Display_128*64)
+
+Please see also: http://fabble.cc/tadfmac/chirimen-oled-display
+
 ##LICENSE
 Copyright (c) 2016 CHIRIMEN Open Hardware
 

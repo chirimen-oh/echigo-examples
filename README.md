@@ -85,6 +85,8 @@ Please see also: http://fabble.cc/tadfmac/chirimen-i2c-paj7620-gesture
 
 It controls a [Grove OLED Display](http://wiki.seeedstudio.com/wiki/Grove_-_OLED_Display_128*64)
 
+Please see also: http://fabble.cc/tadfmac/chirimen-oled-display
+
 ##LICENSE
 Copyright (c) 2016 CHIRIMEN Open Hardware
 

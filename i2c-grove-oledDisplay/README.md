@@ -27,7 +27,8 @@ It controls a [Grove OLED Display](http://wiki.seeedstudio.com/wiki/Grove_-_OLED
 
 Japanese
 
-T.B.D.
+http://fabble.cc/tadfmac/chirimen-oled-display
+
 
 
 

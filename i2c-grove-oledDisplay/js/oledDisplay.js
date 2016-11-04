@@ -122,7 +122,8 @@ const OLED_CONST = {
   Scroll_25Frames : 6,
   Scroll_64Frames : 1,
   Scroll_128Frames : 2,
-  Scroll_256Frames : 3
+  Scroll_256Frames : 3,
+  PACKET_SIZE : 16
 };
 
 var OledDisplay = function(i2cPort,slaveAddress){
@@ -146,8 +147,14 @@ OledDisplay.prototype = {
     if(c < 32 || c > 127){
       c=32;
     }
+    var word = 0;
     for(var i=0;i<8;i++){
-      self.registerQueue(OLED_CONST.Data_Mode,OLED_CONST.BasicFont[c-32][i]);
+      if(i%2){
+        word |= (OLED_CONST.BasicFont[c-32][i])<<8;
+        self.registerQueue(OLED_CONST.Data_Mode,word);
+      }else{
+        word = OLED_CONST.BasicFont[c-32][i];
+      }
     }
   },
   putStringQ: function(string){
@@ -218,18 +225,21 @@ OledDisplay.prototype = {
     　　　  reject();
     　   }
         self.seq = setInterval(function(){
-          if(self.funcQueue[self.index].mode == OLED_CONST.Command_Mode){
-            self.i2cSlave.write8(OLED_CONST.Command_Mode,self.funcQueue[self.index].param);
-          }else{
-            self.i2cSlave.write8(OLED_CONST.Data_Mode,self.funcQueue[self.index].param);
-          }
-          self.index ++;
-          if(self.index >= self.funcQueue.length){
-            clearInterval(self.seq);
-            self.seq = null;
-            self.index = 0;
-            self.funcQueue = [];
-            resolve();
+          for(var cnt=0;cnt < OLED_CONST.PACKET_SIZE;cnt ++){
+            if(self.funcQueue[self.index].mode == OLED_CONST.Command_Mode){
+              self.i2cSlave.write8(OLED_CONST.Command_Mode,self.funcQueue[self.index].param);
+            }else{
+              self.i2cSlave.write16(OLED_CONST.Data_Mode,self.funcQueue[self.index].param);
+            }
+            self.index ++;
+            if(self.index >= self.funcQueue.length){
+              clearInterval(self.seq);
+              self.seq = null;
+              self.index = 0;
+              self.funcQueue = [];
+              resolve();
+              break;
+            }
           }
         },1);
       });

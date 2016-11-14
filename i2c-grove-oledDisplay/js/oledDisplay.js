@@ -1,7 +1,7 @@
 // Source : http://wiki.seeedstudio.com/wiki/Grove_-_OLED_Display_128*64
 
 const OLED_CONST = {
-  BasicFont : [
+  basicFont : [
     [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00],
     [0x00,0x00,0x5F,0x00,0x00,0x00,0x00,0x00],
     [0x00,0x00,0x07,0x00,0x07,0x00,0x00,0x00],
@@ -99,31 +99,31 @@ const OLED_CONST = {
     [0x00,0x02,0x01,0x01,0x02,0x01,0x00,0x00],
     [0x00,0x02,0x05,0x05,0x02,0x00,0x00,0x00]
   ],
-  Address : 0x3c,
-  Max_X : 127,
-  Max_Y : 63,
-  PAGE_MODE : 1,
-  HORIZONTAL_MODE : 2,
-  Command_Mode : 0x80,
-  Data_Mode : 0x40,
-  Display_Off_Cmd : 0xAE,
-  Display_On_Cmd : 0xAF,
-  Normal_Display_Cmd : 0xA6,
-  Inverse_Display_Cmd : 0xA7,
-  Activate_Scroll_Cmd : 0x2F,
-  Dectivate_Scroll_Cmd : 0x2E,
-  Set_Brightness_Cmd : 0x81,
-  Scroll_Left : 0,
-  Scroll_Right : 1,
-  Scroll_2Frames : 7,
-  Scroll_3Frames : 6,
-  Scroll_4Frames : 5,
-  Scroll_5Frames : 0,
-  Scroll_25Frames : 6,
-  Scroll_64Frames : 1,
-  Scroll_128Frames : 2,
-  Scroll_256Frames : 3,
-  PACKET_SIZE : 16
+  address : 0x3c,
+  maxX : 127,
+  maxY : 63,
+  pageMode : 1,
+  horizontalMode : 2,
+  commandMode : 0x80,
+  dataMode : 0x40,
+  displayOffCmd : 0xAE,
+  displayOnCmd : 0xAF,
+  normalDisplayCmd : 0xA6,
+  inverseDisplayCmd : 0xA7,
+  activateScrollCmd : 0x2F,
+  dectivateScrollCmd : 0x2E,
+  setBrightnessCmd : 0x81,
+  scrollLeft : 0,
+  scrollRight : 1,
+  scroll2Frames : 7,
+  scroll3Frames : 6,
+  scroll4Frames : 5,
+  scroll5Frames : 0,
+  scroll25Frames : 6,
+  scroll64Frames : 1,
+  scroll128Frames : 2,
+  scroll256Frames : 3,
+  packetSize : 16
 };
 
 var OledDisplay = function(i2cPort,slaveAddress){
@@ -131,18 +131,16 @@ var OledDisplay = function(i2cPort,slaveAddress){
   this.funcQueue = new Array();
   this.index = 0;
   this.seq = null;
-  this.addressingMode = OLED_CONST.PAGE_MODE;
+  this.addressingMode = OLED_CONST.pageMode;
 };
 
 OledDisplay.prototype = {
   initQ: function(){
-    var self = this;
-    self.registerQueue(OLED_CONST.Command_Mode,OLED_CONST.Display_Off_Cmd);
-    self.registerQueue(OLED_CONST.Command_Mode,OLED_CONST.Display_On_Cmd);
-    self.registerQueue(OLED_CONST.Command_Mode,OLED_CONST.Normal_Display_Cmd);
+    this.registerQueue(OLED_CONST.commandMode,OLED_CONST.displayOffCmd);
+    this.registerQueue(OLED_CONST.commandMode,OLED_CONST.displayOnCmd);
+    this.registerQueue(OLED_CONST.commandMode,OLED_CONST.normalDisplayCmd);
   },
   putCharQ: function(char){
-    var self = this;
     var c = char.charCodeAt(0);
     if(c < 32 || c > 127){
       c=32;
@@ -150,93 +148,83 @@ OledDisplay.prototype = {
     var word = 0;
     for(var i=0;i<8;i++){
       if(i%2){
-        word |= (OLED_CONST.BasicFont[c-32][i])<<8;
-        self.registerQueue(OLED_CONST.Data_Mode,word);
+        word |= (OLED_CONST.basicFont[c-32][i])<<8;
+        this.registerQueue(OLED_CONST.dataMode,word);
       }else{
-        word = OLED_CONST.BasicFont[c-32][i];
+        word = OLED_CONST.basicFont[c-32][i];
       }
     }
   },
   putStringQ: function(string){
-    var self = this;
     for(var i=0;i < string.length; i++){
       var c =  string.charAt(i);
-      self.putCharQ(c);     
+      this.putCharQ(c);     
     }
   },
   drawStringQ: function(row,col,string){
-    var self = this;
-    self.setTextXYQ(row,col);
-    self.putStringQ(string);
+    this.setTextXYQ(row,col);
+    this.putStringQ(string);
   },
   setBrightnessQ: function(Brightness){
-    var self = this;
-    self.registerQueue(OLED_CONST.Command_Mode,OLED_CONST.Set_Brightness_Cmd);
-    self.registerQueue(OLED_CONST.Command_Mode,Brightness);
+    this.registerQueue(OLED_CONST.commandMode,OLED_CONST.Set_Brightness_Cmd);
+    this.registerQueue(OLED_CONST.commandMode,Brightness);
   },
   setHorizontalModeQ: function(){
-    var self = this;
-    self.addressingMode = HORIZONTAL_MODE;
-    self.registerQueue(OLED_CONST.Command_Mode,0x20);
-    self.registerQueue(OLED_CONST.Command_Mode,0);
+    this.addressingMode = horizontalMode;
+    this.registerQueue(OLED_CONST.commandMode,0x20);
+    this.registerQueue(OLED_CONST.commandMode,0);
   },
   setPageModeQ: function(){
-    var self = this;
-    self.addressingMode = PAGE_MODE;
-    self.registerQueue(OLED_CONST.Command_Mode,0x20);
-    self.registerQueue(OLED_CONST.Command_Mode,0x02);
+    this.addressingMode = pageMode;
+    this.registerQueue(OLED_CONST.commandMode,0x20);
+    this.registerQueue(OLED_CONST.commandMode,0x02);
   },
   setTextXYQ: function(row,col){
-    var self = this;
-    self.registerQueue(OLED_CONST.Command_Mode,0xB0 + row);
-    self.registerQueue(OLED_CONST.Command_Mode,0x00 + (8*col & 0x0f));
-    self.registerQueue(OLED_CONST.Command_Mode,0x10 + ((8*col>>4)&0x0f));
+    this.registerQueue(OLED_CONST.commandMode,0xB0 + row);
+    this.registerQueue(OLED_CONST.commandMode,0x00 + (8*col & 0x0f));
+    this.registerQueue(OLED_CONST.commandMode,0x10 + ((8*col>>4)&0x0f));
   },
   clearDisplayQ: function(){
-    var self = this;
     for(var j=0;j < 8;j ++){
-      self.registerQueue(OLED_CONST.Command_Mode,0xB0+j);
-      self.registerQueue(OLED_CONST.Command_Mode,0);
-      self.registerQueue(OLED_CONST.Command_Mode,0x10);
+      this.registerQueue(OLED_CONST.commandMode,0xB0+j);
+      this.registerQueue(OLED_CONST.commandMode,0);
+      this.registerQueue(OLED_CONST.commandMode,0x10);
       for(var i=0;i < 16;i ++){
-        self.putCharQ(' ');
+        this.putCharQ(' ');
       }
     }
   },
   registerQueue: function(mode,param){
-    var self = this;
-    if(self.seq != null){
+    if(this.seq != null){
       console.log("OledDisplay.registerQueue(): error! (now playing)");
       return;
     }
     var obj = {};
     obj.mode = mode;
     obj.param = param;
-    self.funcQueue.push(obj);
+    this.funcQueue.push(obj);
   },
   playSequence: function(){
-    var self = this;
-
-    return new Promise(function(resolve, reject){
-      self.i2cPort.open(OLED_CONST.Address).then(function(i2cSlave){
-        self.i2cSlave = i2cSlave;
-　　     if(self.seq != null){
+    return new Promise((resolve, reject) => {
+      this.i2cPort.open(OLED_CONST.address).then((i2cSlave) => {
+        this.i2cSlave = i2cSlave;
+　　     if(this.seq != null){
    　      console.log("OledDisplay.playSequence(): error! (multiple call)");
     　　　  reject();
     　   }
-        self.seq = setInterval(function(){
-          for(var cnt=0;cnt < OLED_CONST.PACKET_SIZE;cnt ++){
-            if(self.funcQueue[self.index].mode == OLED_CONST.Command_Mode){
-              self.i2cSlave.write8(OLED_CONST.Command_Mode,self.funcQueue[self.index].param);
+        this.seq = setInterval(() => {
+          for(var cnt=0;cnt < OLED_CONST.packetSize;cnt ++){
+            if(this.funcQueue[this.index].mode === OLED_CONST.commandMode){
+              this.i2cSlave.write8(OLED_CONST.commandMode,this.funcQueue[this.index].param);
             }else{
-              self.i2cSlave.write16(OLED_CONST.Data_Mode,self.funcQueue[self.index].param);
+              this.i2cSlave.write16(OLED_CONST.dataMode,this.funcQueue[this.index].param);
             }
-            self.index ++;
-            if(self.index >= self.funcQueue.length){
-              clearInterval(self.seq);
-              self.seq = null;
-              self.index = 0;
-              self.funcQueue = [];
+            this.index ++;
+            if(this.index >= this.funcQueue.length){
+              clearInterval(this.seq);
+              this.seq = null;
+              this.index = 0;
+              this.funcQueue = [];
               resolve();
               break;
             }
@@ -246,35 +234,32 @@ OledDisplay.prototype = {
     });
   },
   init: function(){
-    var self = this;
-    return new Promise(function(resolve, reject){
-      self.i2cPort.open(OLED_CONST.Address).then(function(i2cSlave){
-        self.i2cSlave = i2cSlave;
+    return new Promise((resolve, reject) => {
+      this.i2cPort.open(OLED_CONST.address).then((i2cSlave) =>{
+        this.i2cSlave = i2cSlave;
         console.log("i2cPort.open");
-        self.initQ();
-        self.playSequence().then(function(){resolve()});
+        this.initQ();
+        this.playSequence().then(() => {resolve()});
       });
     });
   },
   clearDisplay: function(){
-    var self = this;
-    return new Promise(function(resolve, reject){
-      self.i2cPort.open(OLED_CONST.Address).then(function(i2cSlave){
-        self.i2cSlave = i2cSlave;
+    return new Promise((resolve, reject) => {
+      this.i2cPort.open(OLED_CONST.address).then((i2cSlave) => {
+        this.i2cSlave = i2cSlave;
         console.log("start clearDisplay");
-        self.clearDisplayQ();
-        self.playSequence().then(function(){resolve()});
+        this.clearDisplayQ();
+        this.playSequence().then(() => {resolve()});
       });
     });
   },
   drawString: function(row,col,string){
-    var self = this;
-    return new Promise(function(resolve, reject){
-      self.i2cPort.open(OLED_CONST.Address).then(function(i2cSlave){
-        self.i2cSlave = i2cSlave;
+    return new Promise((resolve, reject) => {
+      this.i2cPort.open(OLED_CONST.address).then((i2cSlave) => {
+        this.i2cSlave = i2cSlave;
         console.log("start drawString");
-        self.drawStringQ(row,col);
-        self.playSequence().then(function(){resolve()});
+        this.drawStringQ(row,col);
+        this.playSequence().then(() => {resolve()});
       });
     });
   }

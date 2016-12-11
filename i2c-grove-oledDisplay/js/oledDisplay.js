@@ -130,7 +130,7 @@ var OledDisplay = function(i2cPort,slaveAddress){
   this.i2cPort = i2cPort;
   this.funcQueue = new Array();
   this.index = 0;
-  this.seq = null;
+  this.sequence = null;
   this.addressingMode = OLED_CONST.pageMode;
 };
 
@@ -195,24 +195,22 @@ OledDisplay.prototype = {
     }
   },
   registerQueue: function(mode,param){
-    if(this.seq != null){
+    if(this.sequence != null){
       console.log("OledDisplay.registerQueue(): error! (now playing)");
       return;
     }
-    var obj = {};
-    obj.mode = mode;
-    obj.param = param;
+    var obj = {mode: mode, param: param};
     this.funcQueue.push(obj);
   },
   playSequence: function(){
     return new Promise((resolve, reject) => {
       this.i2cPort.open(OLED_CONST.address).then((i2cSlave) => {
         this.i2cSlave = i2cSlave;
-　　     if(this.seq != null){
+　　     if(this.sequence != null){
    　      console.log("OledDisplay.playSequence(): error! (multiple call)");
     　　　  reject();
     　   }
-        this.seq = setInterval(() => {
+        this.sequence = setInterval(() => {
           for(var cnt=0;cnt < OLED_CONST.packetSize;cnt ++){
             if(this.funcQueue[this.index].mode === OLED_CONST.commandMode){
               this.i2cSlave.write8(OLED_CONST.commandMode,this.funcQueue[this.index].param);
@@ -221,8 +219,8 @@ OledDisplay.prototype = {
             }
             this.index ++;
             if(this.index >= this.funcQueue.length){
-              clearInterval(this.seq);
-              this.seq = null;
+              clearInterval(this.sequence);
+              this.sequence = null;
               this.index = 0;
               this.funcQueue = [];
               resolve();

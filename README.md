@@ -7,7 +7,11 @@ English
 
 https://developer.mozilla.org/en-US/docs/Mozilla/Developer_guide/Coding_Style
 
-* Don't include the polyfill codes such as webgpio.js and webi2c.js.
+~~* Don't include the polyfill codes such as webgpio.js and webi2c.js.~~
+
+> comment on Feb 16, 2017 
+> These examples has included polyfills the version of conforming to [release CMN2015-1_B2GOS-20170301](https://github.com/chirimen-oh/release/releases/tag/CMN2015-1_B2GOS-20170301).
+> So, Don't try `bower install` in this version.
 
 日本語
 
@@ -15,7 +19,11 @@ https://developer.mozilla.org/en-US/docs/Mozilla/Developer_guide/Coding_Style
 
 https://developer.mozilla.org/ja/docs/Mozilla/Developer_Guide/Mozilla_Coding_Style_Guide
 
-* webgpio.js、webi2c.jsなどpolyfillのスクリプトはサンプルコードに含めないでください。
+~~* webgpio.js、webi2c.jsなどpolyfillのスクリプトはサンプルコードに含めないでください。~~
+
+> 2017.02.16 コメント 
+> このサンプルには CHIRIMEN release CMN2015-1_B2GOS-20170301に適合するPolyfillが既に含まれています。
+> このため`bower install`は実施しないでください。
 
 ## Description
  

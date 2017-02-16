@@ -9,14 +9,11 @@ It controls a [Grove OLED Display](http://wiki.seeedstudio.com/wiki/Grove_-_OLED
     > The polyfills has been included into `./Js/`.
     > So, it unnecessary the following procedure.
 
-    ```
     ~~# settings~~
     ~~npm i -g bower~~
 
     ~~# polyfill install~~
     ~~bower install~~
-
-    ```
 
   Please see also: https://github.com/club-wot/WebGPIO
 

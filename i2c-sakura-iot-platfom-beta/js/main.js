@@ -1,3 +1,3 @@
 window.addEventListener("load", function() {
-  console.log("Hello World!");
+  console.log("Hello sakura iot platfom beta World");
 });

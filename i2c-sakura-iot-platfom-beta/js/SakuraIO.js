@@ -38,5 +38,11 @@ SakuraIO.prototype = {
       this.mode = this.MODE_IDLE;
     }
     return ret;
+  },
+  read: function() {
+
+  },
+  write: function() {
+    
   }
 };

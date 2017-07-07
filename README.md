@@ -31,7 +31,7 @@ https://developer.mozilla.org/ja/docs/Mozilla/Developer_Guide/Mozilla_Coding_Sty
 
 It blinks an LED.
 
-Please see also: http://fabble.cc/chirimenedu/chirimenhelloworld
+Please see also: http://qiita.com/kotakagi/items/3a4f7865ab784cd88cdd
 
 ### button
 
@@ -43,25 +43,25 @@ Please see also: http://fabble.cc/chirimenedu/chirimenpushbutton
 
 It reads a temperture sensor (ADT7410).
 
-Please see also: http://fabble.cc/chirimenedu/chirimeni2csensor
+Please see also: http://qiita.com/kotakagi/items/56bba849295cf4c81d39#_reference-045b2acb9c1ec2f498df
 
 ### i2c-SRF02
 
 It reads a distance sensor (SRF02).
 
-Please see also: http://fabble.cc/chirimenedu/chirimeni2csensor
+Please see also: http://qiita.com/kotakagi/items/56bba849295cf4c81d39#_reference-045b2acb9c1ec2f498df
 
 ### i2c-grove-light
 
 It reads a light sensor (Grove Digital Light Sensor).
 
-Please see also: http://fabble.cc/chirimenedu/chirimeni2csensor
+Please see also: http://qiita.com/kotakagi/items/56bba849295cf4c81d39#_reference-045b2acb9c1ec2f498df
 
 ### i2c-grove-accelerometer
 
 It reads an accelerometer sensor (Grove Digital Accelerometer Sensor).
 
-Please see also: http://fabble.cc/chirimenedu/chirimeni2csensor
+Please see also: http://qiita.com/kotakagi/items/56bba849295cf4c81d39#_reference-045b2acb9c1ec2f498df
 
 ### i2c-PCA9685
 

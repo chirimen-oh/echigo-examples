@@ -1,4 +1,4 @@
-Please see also: https://github.com/club-wot/WebGPIO
+Please see also: https://github.com/chirimen-oh/polyfills
 
 ## use settings
 
@@ -21,4 +21,4 @@ Please see also: https://github.com/club-wot/WebGPIO
 
 Japanese
 
-http://fabble.cc/chirimenedu/chirimeni2csensor
+http://qiita.com/kotakagi/items/56bba849295cf4c81d39#_reference-045b2acb9c1ec2f498df

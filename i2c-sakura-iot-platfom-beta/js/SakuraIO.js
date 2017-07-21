@@ -62,7 +62,7 @@ const MODE_IDLE = 0x00;
 const MODE_WRITE = 0x01;
 const MODE_READ = 0x02;
 
-let mode;
+var mode;
 
 var sakuraIO = function(i2cPort,slaveAddress) {
   this.i2cPort = i2cPort;
@@ -71,9 +71,9 @@ var sakuraIO = function(i2cPort,slaveAddress) {
 
 sakuraIO.prototype = {
   executeCommand: function(cmd, requestLength, request, responseLength, response) {
-    let parity = 0x00;
-    let result = 0x00;
-    let reservedResponseLength, tmpResponse, receivedResponseLength;
+    var parity = 0x00;
+    var result = 0x00;
+    var reservedResponseLength, tmpResponse, receivedResponseLength;
 
     console.log("executeCommand");
 
@@ -127,7 +127,7 @@ sakuraIO.prototype = {
     console.log("Parity=");
     console.log(p);
     if (parity != 0x00) {
-      result = CMD_ERROR_PARITY;
+      result = this.CMD_ERROR_PARITY;
       console.log("Invalid parity");
     } else {
       console.log("Success");
@@ -138,61 +138,50 @@ sakuraIO.prototype = {
     this.end();
     return result;
   },
-
   /* Common Commands */
   getConnectionStatus: function() {
-    let responseLength = 1;
-    let response[1] = 0x00;
+    var responseLength = 1;
+//    var response[1] = 0x00;
+    var response = [0x00, 0x00];
     if (executeCommand(CMD_GET_CONNECTION_STATUS, 0, NULL, responseLength, response) != CMD_ERROR_NONE) {
       return 0x7F;
     }
     return response[0];
-  }
-
+  },
   getSignalQuality: function() {
-    let responseLength = 1;
-    let response[1] = 0x00;
+    var responseLength = 1;
+    var response[1] = 0x00;
 
     if (executeCommand(CMD_GET_SIGNAL_QUALITY, 0, NULL, &responseLength, response) != CMD_ERROR_NONE) {
       return 0x00;
     }
     return response[0];
-  }
-
-  getSignalQuarity: function() {
-    // deprecated
-    return getSignalQuality();
-  }
-
+  },
   getUnixtime: function() {
-    let responseLength = 8;
+    var responseLength = 8;
     let response[8] = {0x00};
     if (executeCommand(CMD_GET_DATETIME, 0, NULL, &responseLength, response) != CMD_ERROR_NONE) {
       return 0x00;
     }
     return *((let *)response);
-  }
-
+  },
   echoback: function(length, data, *response) {
-    let responseLength = length;
+    var responseLength = length;
     if (executeCommand(CMD_ECHO_BACK, length, data, &responseLength, response) != CMD_ERROR_NONE) {
       return 0x00;
     }
     return responseLength;
-  }
-
+  },
   /* IO Commands */
-
   getADC: function(let channel) {
     let request[1] = {channel};
     let response[2] = {0x00};
-    let responseLength = sizeof(response);
+    var responseLength = sizeof(response);
     if (executeCommand(CMD_READ_ADC, 1, request, &responseLength, response) != CMD_ERROR_NONE) {
       return 0xffff;
     }
     return *((uint16_t *)response);
-  }
-
+  },
   /* TX Commands */
   enqueueTxRaw: function(ch, type, length, data, offset) {
     let request[18] = {0x00};
@@ -209,43 +198,36 @@ sakuraIO.prototype = {
       }
     }
     return executeCommand(CMD_TX_ENQUEUE, requestLength, request, NULL, NULL);
-  }
-
+  },
   enqueueTx: function(ch, value, offset) {
     return enqueueTxRaw(ch, 'i', 4, value, offset);
-  }
-
+  },
   getTxQueueLength: function(available, queued) {
     let response[2] = {0x00};
-    let responseLength = 2;
+    var responseLength = 2;
     let ret = executeCommand(CMD_TX_LENGTH, 0, NULL, &responseLength, response);
     available = response[0];
     queued = response[1];
     return ret;
-  }
-
+  },
   clearTx: function() {
     return executeCommand(CMD_TX_CLEAR, 0, NULL, NULL, NULL);
-  }
-
+  },
   send: function() {
     return executeCommand(CMD_TX_SEND, 0, NULL, NULL, NULL);
-  }
-
+  },
   getTxStatus: function(*queue, *immediate) {
     let response[2] = {0x00};
-    let responseLength = 2;
+    var responseLength = 2;
     let ret = executeCommand(CMD_TX_STAT, 0, NULL, &responseLength, response);
     *queue = response[0];
     *immediate = response[1];
     return ret;
-  }
-
+  },
   /* RX Commands */
-
   dequeueRx: function(ch, type, value, offset) {
     let response[18] = {0x00};
-    let responseLength = 18;
+    var responseLength = 18;
     let ret = executeCommand(CMD_RX_DEQUEUE, 0, NULL, &responseLength, response);
     if (ret != CMD_ERROR_NONE) {
       return ret;
@@ -261,11 +243,10 @@ sakuraIO.prototype = {
     }
 
     return ret;
-  }
-
+  },
   peekRx: function(ch, type, value, offset) {
     let response[18] = {0x00};
-    let responseLength = 18;
+    var responseLength = 18;
     let ret = executeCommand(CMD_RX_PEEK, 0, NULL, &responseLength, response);
     if (ret != CMD_ERROR_NONE) {
       return ret;
@@ -281,69 +262,59 @@ sakuraIO.prototype = {
     }
 
     return ret;
-  }
-
+  },
   getRxQueueLength: function(available, queued) {
     let response[2] = {0x00};
-    let responseLength = 2;
+    var responseLength = 2;
     let ret = executeCommand(CMD_RX_LENGTH, 0, NULL, &responseLength, response);
     available = response[0];
     queued = response[1];
     return ret;
-  }
-
+  },
   clearRx: function() {
     return executeCommand(CMD_RX_CLEAR, 0, NULL, NULL, NULL);
-  }
-
+  },
   /* File command */
   startFileDownload: function(fileId) {
     return executeCommand(CMD_START_FILE_DOWNLOAD, 2, fileId, NULL, NULL);
-  }
-
+  },
   cancelFileDownload: function() {
     return executeCommand(CMD_CANCEL_FILE_DOWNLOAD, 0, NULL, NULL, NULL);
-  }
-
+  },
   getFileMetaData: function(*status, *totalSize, *timestamp, *crc) {
     let response[17] = {0x00};
-    let responseLength = 17;
+    var responseLength = 17;
     let ret = executeCommand(CMD_GET_FILE_METADATA, 0, NULL, &responseLength, response);
     *status = response[0];
     *totalSize = *(let *)(response+1);
     *timestamp = *(let *)(response+5);
     *crc = *(let *)(response+13);
     return ret;
-  }
-
+  },
   getFileDownloadStatus: function(*status, *currentSize) {
     let response[5] = {0x00};
-    let responseLength = 5;
+    var responseLength = 5;
     let ret = executeCommand(CMD_GET_FILE_DOWNLOAD_STATUS, 0, NULL, &responseLength, response);
     *status = response[0];
     *currentSize = *(let *)(response+1);
     return ret;
-  }
-
+  },
   getFileData: function(size, data) {
     return executeCommand(CMD_GET_FILE_DATA, 1, size, size, data);
-  }
-
+  },
   /* Operation command */
-
   getProductID: function() {
     let response[2] = {0x00};
-    let responseLength = 2;
+    var responseLength = 2;
     let ret = executeCommand(CMD_GET_PRODUCT_ID, 0, NULL, &responseLength, response);
     if (ret != CMD_ERROR_NONE) {
       return 0x00;
     }
     return *((uint16_t *)response);
-  }
-
+  },
   getUniqueID: function(data) {
     let response[11] = {0x00};
-    let responseLength = 10;
+    var responseLength = 10;
     let ret = executeCommand(CMD_GET_UNIQUE_ID, 0, NULL, &responseLength, response);
     if (ret != CMD_ERROR_NONE) {
       return ret;
@@ -353,11 +324,10 @@ sakuraIO.prototype = {
     }
     data[responseLength] = 0x00;
     return ret;
-  }
-
+  },
   getFirmwareVersion: function(data) {
     let response[33] = {0x00};
-    let responseLength = 32;
+    var responseLength = 32;
     let ret = executeCommand(CMD_GET_FIRMWARE_VERSION, 0, NULL, &responseLength, response);
     if (ret != CMD_ERROR_NONE) {
       return ret;
@@ -367,30 +337,25 @@ sakuraIO.prototype = {
     }
     data[responseLength] = 0x00;
     return ret;
-  }
-
+  },
   unlock: function() {
     let request[4] = {0x53, 0x6B, 0x72, 0x61};
     return executeCommand(CMD_UNLOCK, 4, request, NULL, NULL);
-  }
-
+  },
   updateFirmware: function() {
     return executeCommand(CMD_UPDATE_FIRMWARE, 0, 0, NULL, NULL);
-  }
-
+  },
   getFirmwareUpdateStatus: function() {
-    let response[1] = 0x00;
-    let responseLength = 1;
+    var response[1] = 0x00;
+    var responseLength = 1;
     if (executeCommand(CMD_GET_UPDATE_FIRMWARE_STATUS, 0, 0, &responseLength, response) != CMD_ERROR_NONE) {
         return 0xff;
     }
     return response[0];
-  }
-
+  },
   reset: function() {
     return executeCommand(CMD_SOFTWARE_RESET, 0, 0, NULL, NULL);
-  }
-
+  },
   begin: function() {
     this.mode = this.MODE_IDLE;
   },

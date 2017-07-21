@@ -1,0 +1,12 @@
+{
+  "name": "live-i2c-ADT7410",
+  "description": "temperature sensor ADT7410 live example",
+  "launch_path": "/chirimen/live-examples/i2c-ADT7410/live.html",
+  "developer": {
+    "name": "CHIRIMEN Open Hardware",
+    "url": "https://github.com/chirimen-oh/"
+  },
+  "icons": {
+    "128": "/chirimen/live-examples/i2c-ADT7410/style/icons/sensor.png"
+  }
+}

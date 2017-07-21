@@ -1,0 +1,12 @@
+{
+  "name": "i2c-grove-accelerometer",
+  "description": "Grove Digital Accelerometer sensor live example",
+  "launch_path": "/chirimen/live-examples/i2c-grove-accelerometer/live.html",
+  "developer": {
+    "name": "CHIRIMEN Open Hardware",
+    "url": "https://github.com/chirimen-oh/"
+  },
+  "icons": {
+    "128": "/chirimen/live-examples/i2c-grove-accelerometer/style/icons/sensor.png"
+  }
+}
